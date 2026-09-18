@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* 1. Define our fluid design tokens natively in CSS */
+@theme {
+  --spacing-fluid-sm: clamp(0.5rem, 1.5vw, 0.75rem);
+  --spacing-fluid-md: clamp(1rem, 3vw, 1.5rem);
+  --spacing-fluid-lg: clamp(1.75rem, 5vw, 3rem);
+  --spacing-fluid-xl: clamp(2.5rem, 8vw, 5rem);
+
+  --font-size-fluid-xs: clamp(0.75rem, 1vw, 0.875rem);
+  --font-size-fluid-base: clamp(0.875rem, 1.2vw, 1rem);
+  --font-size-fluid-lg: clamp(1.125rem, 1.8vw, 1.25rem);
+  --font-size-fluid-h2: clamp(1.35rem, 2.5vw, 1.75rem);
+  --font-size-fluid-h1: clamp(1.75rem, 4vw, 2.5rem);
+
+  --radius-fluid-md: clamp(0.375rem, 1vw, 0.625rem);
+  --radius-fluid-lg: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* 2. Enable class-based dark mode (v4 explicit variant) */
+@custom-variant dark (&:is(.dark *));
+
+/* 3. Global Base Styles */
+@layer base {
+  html, body {
+    @apply m-0 p-0 overflow-x-hidden antialiased;
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+    font-size: 16px; 
+  }
+
+  html.dark body {
+    @apply bg-slate-950 text-slate-50;
+  }
+
+  body {
+    font-size: var(--font-size-fluid-base);
+  }
+}
+
+/* 4. Custom Utilities */
+@utility text-sub {
+  @apply text-slate-700 dark:text-slate-400;
+}
