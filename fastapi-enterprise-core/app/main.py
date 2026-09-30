@@ -12,6 +12,7 @@ from app.api.v1.api import api_router as main_api_auth_v1
 from app.api.v1.system import router as system_router
 from app.api.v1.mfa_totp import router as mfa_totp_router
 from app.api.v1.logging_app.api import api_router as logging_app_api_router_v1
+from app.api.v1.logging_app.router import ensure_service_keys
 
 from app.core.rate_limit import limiter, _rate_limit_exceeded_handler
 from app.core.database import engine, SessionLocal
@@ -26,6 +27,7 @@ user.Base.metadata.create_all(bind=engine)
 # --- Lifespan for Startup/Shutdown ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    ensure_service_keys()
     db = SessionLocal()
     try:
         create_super_admin(db)

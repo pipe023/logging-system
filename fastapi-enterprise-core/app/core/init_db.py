@@ -16,7 +16,7 @@ def create_super_admin(db: Session):
         super_permissions = {
             "centralized logger": ["create", "read", "update", "delete"],
             "users": ["create", "read", "update", "delete"],
-            "system": ["create","read", "update"] 
+            "system": ["create", "read", "update", "delete"]
         }
         
         new_admin = User(

@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, Users, Shield, Sun, Moon, Server } from 'lucide-react';
+import { LayoutDashboard, Users, Sun, Moon, Server } from 'lucide-react';
 
 export default function SidebarLayout({ isDarkMode, toggleTheme }: any) {
   const navClass = ({ isActive }: { isActive: boolean }) =>

@@ -14,8 +14,14 @@ ALGORITHM = "HS256"
 # --- FERNET ENCRYPTION (FOR MFA SECRETS) ---
 # Ensure you add FERNET_KEY to your settings/config. 
 # Generate one using: Fernet.generate_key()
-_FERNET_KEY = getattr(settings, "FERNET_KEY", Fernet.generate_key())
-cipher_suite = Fernet(_FERNET_KEY.encode() if isinstance(_FERNET_KEY, str) else _FERNET_KEY)
+try:
+    cipher_suite = Fernet(settings.FERNET_KEY.encode())
+except (ValueError, TypeError) as exc:
+    raise ValueError(
+        "FERNET_KEY must be a URL-safe Base64-encoded 32-byte key. "
+        "Restore the existing encryption key, or generate one with "
+        "Fernet.generate_key() for a new installation."
+    ) from exc
 
 def encrypt_secret(secret: str) -> str:
     """Encrypts a sensitive string (like a TOTP secret) before database storage."""
